@@ -8,7 +8,9 @@
 import UIKit
 
 class ToDoListViewController: UIViewController {
+    
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var addBarButton: UIBarButtonItem!
     
     //Dummy data
     var toDoArray = ["Learn Swifrt", "Build Apps", "Change the World", "Take a Vacation"]
@@ -19,7 +21,35 @@ class ToDoListViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
     }
-
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ShowDetail" {
+            let destination = segue.destination as! ToDoDetailTableViewController
+            let selectedIdexPath = tableView.indexPathForSelectedRow!
+            destination.toDoItem = toDoArray[selectedIdexPath.row]
+        }
+    }
+    
+    @IBAction func unwindFromDetail(segue: UIStoryboardSegue) {
+        let source = segue.source as! ToDoDetailTableViewController
+        if let selectedIndexPath = tableView.indexPathForSelectedRow {
+            toDoArray[selectedIndexPath.row] = source.toDoItem
+            tableView.reloadRows(at: [selectedIndexPath], with: .automatic)
+        }
+    }
+    
+    @IBAction func editButtonPressed(_ sender: UIBarButtonItem) {
+        if tableView.isEditing {
+            tableView.setEditing(false, animated: true)
+            sender.title = "Edit"
+            addBarButton.isEnabled = true
+        } else {
+            tableView.setEditing(true, animated: true)
+            sender.title = "Done"
+            addBarButton.isEnabled = false
+        }
+    }
+    
 }
 
 extension ToDoListViewController: UITableViewDelegate, UITableViewDataSource {
@@ -35,6 +65,17 @@ extension ToDoListViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            toDoArray.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
     
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        let itemToMove = toDoArray[sourceIndexPath.row]
+        toDoArray.remove(at: sourceIndexPath.row)
+        toDoArray.insert(itemToMove, at: destinationIndexPath.row)
+    }
 }
 
