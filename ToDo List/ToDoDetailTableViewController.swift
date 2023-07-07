@@ -39,7 +39,7 @@ class ToDoDetailTableViewController: UITableViewController {
         super.viewDidLoad()
         
         if toDoItem == nil {
-            toDoItem = ToDoItem(name: "", date: Date().addingTimeInterval(24*60*60), notes: "", remainderSet: false)
+            toDoItem = ToDoItem(name: "", date: Date().addingTimeInterval(24*60*60), notes: "", remainderSet: false, complited: false)
         }
         
         updateUserInterface()
@@ -65,8 +65,7 @@ class ToDoDetailTableViewController: UITableViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        toDoItem = ToDoItem(name: nameField.text!, date: datePicker.date, notes: noteView.text, remainderSet: remainderSwitch.isOn)
-        
+        toDoItem = ToDoItem(name: nameField.text!, date: datePicker.date, notes: noteView.text, remainderSet: remainderSwitch.isOn, complited: toDoItem.complited)
     }
     
     @IBAction func remainderSwitchChanged(_ sender: UISwitch) {
