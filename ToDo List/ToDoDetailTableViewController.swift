@@ -38,8 +38,16 @@ class ToDoDetailTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Hide the keyborde when the user taps outside of the text field
+        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
+        tap.cancelsTouchesInView = false
+        self.view.addGestureRecognizer(tap)
+        
+        nameField.delegate = self
+        
         if toDoItem == nil {
             toDoItem = ToDoItem(name: "", date: Date().addingTimeInterval(24*60*60), notes: "", remainderSet: false, complited: false)
+            nameField.becomeFirstResponder()
         }
         
         updateUserInterface()
@@ -53,6 +61,7 @@ class ToDoDetailTableViewController: UITableViewController {
         dateLabel.textColor = (remainderSwitch.isOn ? .black : .gray)
         dateLabel.text = dateFormatter.string(from: toDoItem.date)
         tableView.separatorStyle = .none
+        enableDisableSaveButton(text: nameField.text!)
     }
 
     @IBAction func cancelButtonPressed(_ sender: UIBarButtonItem) {
@@ -68,15 +77,28 @@ class ToDoDetailTableViewController: UITableViewController {
         toDoItem = ToDoItem(name: nameField.text!, date: datePicker.date, notes: noteView.text, remainderSet: remainderSwitch.isOn, complited: toDoItem.complited)
     }
     
+    func enableDisableSaveButton(text: String) {
+        if text.count > 0 {
+            saveBarButton.isEnabled = true
+        } else {
+            saveBarButton.isEnabled = false
+        }
+    }
+    
     @IBAction func remainderSwitchChanged(_ sender: UISwitch) {
+        self.view.endEditing(true)
         dateLabel.textColor = (remainderSwitch.isOn ? .black : .gray)
-
         tableView.beginUpdates()
         tableView.endUpdates()
     }
     
     @IBAction func datePickerChanged(_ sender: UIDatePicker) {
+        self.view.endEditing(true)
         dateLabel.text = dateFormatter.string(from: sender.date)
+    }
+    
+    @IBAction func nameFieldEditingChanged(_ sender: UITextField) {
+        enableDisableSaveButton(text: sender.text!)
     }
 }
 
@@ -95,6 +117,11 @@ extension ToDoDetailTableViewController {
             return defaultRowHeight
         }
     }
-    
-    
+}
+
+extension ToDoDetailTableViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        noteView.becomeFirstResponder()
+        return true
+    }
 }

@@ -28,40 +28,42 @@
                                             <rect key="frame" x="0.0" y="0.0" width="335" height="62"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eRq-6U-ND2">
-                                                    <rect key="frame" x="66" y="11" width="249" height="40"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eri-dn-DaR">
-                                                    <rect key="frame" x="20" y="0.0" width="40" height="62"/>
+                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Qsi-go-sI0">
+                                                    <rect key="frame" x="20" y="11" width="295" height="40"/>
+                                                    <subviews>
+                                                        <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eri-dn-DaR">
+                                                            <rect key="frame" x="0.0" y="0.0" width="26.666666666666668" height="40"/>
+                                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                            <state key="normal">
+                                                                <imageReference key="image" image="circle" catalog="system" symbolScale="large"/>
+                                                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" weight="bold"/>
+                                                            </state>
+                                                            <state key="selected">
+                                                                <imageReference key="image" image="checkmark.circle.fill" catalog="system" symbolScale="large"/>
+                                                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" weight="bold"/>
+                                                            </state>
+                                                            <state key="highlighted" image="checkmark.circle" catalog="system"/>
+                                                            <connections>
+                                                                <action selector="checkToggled:" destination="8aA-oA-9Sh" eventType="touchUpInside" id="WqP-Gl-fmA"/>
+                                                            </connections>
+                                                        </button>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eRq-6U-ND2">
+                                                            <rect key="frame" x="36.666666666666657" y="0.0" width="258.33333333333337" height="40"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="40" id="vMN-8b-eDd"/>
+                                                        <constraint firstItem="Eri-dn-DaR" firstAttribute="width" secondItem="Qsi-go-sI0" secondAttribute="width" multiplier="0.0903955" id="Zjo-pJ-54K"/>
                                                     </constraints>
-                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                    <state key="normal">
-                                                        <imageReference key="image" image="circle" catalog="system" symbolScale="large"/>
-                                                        <preferredSymbolConfiguration key="preferredSymbolConfiguration" weight="bold"/>
-                                                    </state>
-                                                    <state key="selected">
-                                                        <imageReference key="image" image="checkmark.circle.fill" catalog="system" symbolScale="large"/>
-                                                        <preferredSymbolConfiguration key="preferredSymbolConfiguration" weight="bold"/>
-                                                    </state>
-                                                    <state key="highlighted" image="checkmark.circle" catalog="system"/>
-                                                    <connections>
-                                                        <action selector="checkToggled:" destination="8aA-oA-9Sh" eventType="touchUpInside" id="WqP-Gl-fmA"/>
-                                                    </connections>
-                                                </button>
+                                                </stackView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="eRq-6U-ND2" firstAttribute="top" secondItem="b6l-wO-UZw" secondAttribute="topMargin" id="SCu-Ox-WfO"/>
-                                                <constraint firstItem="Eri-dn-DaR" firstAttribute="top" secondItem="b6l-wO-UZw" secondAttribute="top" id="VKx-pY-O4j"/>
-                                                <constraint firstItem="Eri-dn-DaR" firstAttribute="leading" secondItem="b6l-wO-UZw" secondAttribute="leadingMargin" id="gHw-Am-6Xo"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="eRq-6U-ND2" secondAttribute="bottom" id="iWz-Sq-jZV"/>
-                                                <constraint firstAttribute="bottom" secondItem="Eri-dn-DaR" secondAttribute="bottom" id="loh-2b-243"/>
-                                                <constraint firstItem="eRq-6U-ND2" firstAttribute="leading" secondItem="Eri-dn-DaR" secondAttribute="trailing" constant="6" id="uzU-RS-rlg"/>
-                                                <constraint firstItem="eRq-6U-ND2" firstAttribute="trailing" secondItem="b6l-wO-UZw" secondAttribute="trailingMargin" id="x0b-sg-u8s"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="Qsi-go-sI0" secondAttribute="bottom" id="4X7-dx-Gzw"/>
+                                                <constraint firstItem="Qsi-go-sI0" firstAttribute="leading" secondItem="b6l-wO-UZw" secondAttribute="leadingMargin" id="CgA-Pm-dY7"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="Qsi-go-sI0" secondAttribute="trailing" id="XZh-vI-V4g"/>
+                                                <constraint firstItem="Qsi-go-sI0" firstAttribute="top" secondItem="b6l-wO-UZw" secondAttribute="topMargin" id="iyB-pM-lvo"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -124,6 +126,9 @@
                                                     <rect key="frame" x="20" y="11" width="295" height="40"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <action selector="nameFieldEditingChanged:" destination="1nw-69-2F0" eventType="editingChanged" id="VRx-vv-gSq"/>
+                                                    </connections>
                                                 </textField>
                                             </subviews>
                                             <constraints>
