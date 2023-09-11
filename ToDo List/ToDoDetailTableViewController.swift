@@ -20,7 +20,7 @@ class ToDoDetailTableViewController: UITableViewController {
     @IBOutlet weak var saveBarButton: UIBarButtonItem!
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var datePicker: UIDatePicker!
-    @IBOutlet weak var noteView: UITextView!    
+    @IBOutlet weak var noteView: UITextView!
     @IBOutlet weak var remainderSwitch: UISwitch!
     @IBOutlet weak var dateLabel: UILabel!
     
@@ -62,6 +62,22 @@ class ToDoDetailTableViewController: UITableViewController {
         dateLabel.text = dateFormatter.string(from: toDoItem.date)
         tableView.separatorStyle = .none
         enableDisableSaveButton(text: nameField.text!)
+        updateRemainderSwitch()
+    }
+    
+    func updateRemainderSwitch() {
+        LocalNotificationManager.isAuthorized { (authorized) in
+            DispatchQueue.main.async {
+                if !authorized && self.remainderSwitch.isOn {
+                    self.oneButtonAlert(title: "User Has Not Allowed Notifications", message: "To receive alerts for reminders, open the Settings app, select To Do List > Notifications > Allow Notifications")
+                    self.remainderSwitch.isOn = false
+                }
+                self.view.endEditing(true)
+                self.dateLabel.textColor = (self.remainderSwitch.isOn ? .black : .gray)
+                self.tableView.beginUpdates()
+                self.tableView.endUpdates()
+            }
+        }
     }
 
     @IBAction func cancelButtonPressed(_ sender: UIBarButtonItem) {
@@ -86,10 +102,7 @@ class ToDoDetailTableViewController: UITableViewController {
     }
     
     @IBAction func remainderSwitchChanged(_ sender: UISwitch) {
-        self.view.endEditing(true)
-        dateLabel.textColor = (remainderSwitch.isOn ? .black : .gray)
-        tableView.beginUpdates()
-        tableView.endUpdates()
+        updateRemainderSwitch()
     }
     
     @IBAction func datePickerChanged(_ sender: UIDatePicker) {
